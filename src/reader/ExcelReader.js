@@ -9,12 +9,8 @@ class ExcelReader {
         this.workbook = new ExcelJS.Workbook();
     }
 
-    async setWorkbook() {
-        this.wb = await this.workbook.xlsx.readFile(this.reportDir);
-    }
-
     async readFile() {
-        await this.setWorkbook();
+        this.wb = await this.workbook.xlsx.readFile(this.reportDir);
     }
 }
 

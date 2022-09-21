@@ -1,6 +1,5 @@
-const ExcelJS = require('exceljs');
-const { DataFacebook } = require('../model/raw/FacebookRaw');
 const { ExcelReader } = require('./ExcelReader');
+var XLSX = require("xlsx");
 
 class LazadaReader extends ExcelReader {
 
@@ -10,17 +9,18 @@ class LazadaReader extends ExcelReader {
     }
 
     async readFile() {
-        await super.setWorkbook();
-        const wb = await this.workbook.xlsx.readFile(this.reportDir);
-        const sheet = wb.getWorksheet(1);
+        this.wb = XLSX.readFile(this.reportDir);
+        console.log(this.wb);
 
-        // skip header
-        const fbDatas = [];
-        for (let rowNo = 1; rowNo <= sheet.rowCount; rowNo++) {
-            const fbData = DataFacebook.initData(sheet.getRow(rowNo));
-            fbDatas.push(fbData);
-        }
-        console.log(fbDatas.length);
+        // const sheet = this.wb.getWorksheet(1);
+
+        // // skip header
+        // const datas = [];
+        // for (let rowNo = 1; rowNo <= sheet.rowCount; rowNo++) {
+        //     const data = DataFacebook.initData(sheet.getRow(rowNo));
+        //     datas.push(data);
+        // }
+        return datas;
     }
 }
 

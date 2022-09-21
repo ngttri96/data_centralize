@@ -10,9 +10,8 @@ class ShopeeReader extends ExcelReader {
     }
 
     async readFile() {
-        await super.setWorkbook();
-        const wb = await this.workbook.xlsx.readFile(this.reportDir);
-        const sheet = wb.getWorksheet(1);
+        await super.readFile();
+        const sheet = this.wb.getWorksheet(1);
 
         // skip header
         const datas = [];
@@ -20,7 +19,7 @@ class ShopeeReader extends ExcelReader {
             const data = ShopeeRaw.initData(sheet.getRow(rowNo));
             datas.push(data);
         }
-        console.log(datas)
+        return datas;
     }
 }
 

@@ -10,9 +10,9 @@ class FacebookReader extends ExcelReader {
     }
 
     async readFile() {
-        await super.setWorkbook();
-        const wb = await this.workbook.xlsx.readFile(this.reportDir);
-        const sheet = wb.getWorksheet(1);
+        await super.readFile();
+        
+        const sheet = this.wb.getWorksheet(1);
 
         // skip header
         const datas = [];
@@ -20,6 +20,7 @@ class FacebookReader extends ExcelReader {
             const data = FacebookRaw.initData(sheet.getRow(rowNo));
             datas.push(data);
         }
+        return datas;
     }
 }
 
