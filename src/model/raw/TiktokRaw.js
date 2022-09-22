@@ -1,8 +1,9 @@
 const ExcelJS = require('exceljs');
 const { parseDate, parseFloatComma, removeLastChar } = require('../../Utils/DataFormat');
+const { Raw } = require('./Raw');
 
-class TiktokRaw {
-    /*
+class TiktokRaw extends Raw {
+    /* 
         date                   Thời gian	
         revenue                Doanh thu	
         revenueAss             Doanh thu Liên kết
@@ -36,6 +37,8 @@ class TiktokRaw {
         rateBadQualityReturn,
         rateComplain
     ) {
+        super(TiktokRaw.name);
+
         this.date = date,
         this.revenue = revenue,
         this.revenueAss = revenueAss,
@@ -86,6 +89,10 @@ class TiktokRaw {
             // rateComplain           Tỷ lệ khiếu nại
             parseInt(cell.getCell(15).value),
         )
+    }
+
+    convertToModel() {
+        return super.converToModel(this.view, this.prodAppro, null, this.buyer, null);
     }
 }
 

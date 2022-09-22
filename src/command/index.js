@@ -3,22 +3,18 @@ const {LazadaReader} = require('../reader/LazadaReader');
 const { ShopeeReader } = require('../reader/ShopeeReader');
 const { TiktokReader } = require('../reader/TikTokReader');
 
-fbReader = new FacebookReader();
-lzReader = new LazadaReader();
-spReader = new ShopeeReader();
-ttReader = new TiktokReader();
 
-fbReader.readFile().then(res => {
-    console.log(res);
-})
-// lzReader.readFile().then(res => {
-//     console.log(res);
-// })
+const readers = [
+    new FacebookReader(),
+    // new LazadaReader(),
+    new ShopeeReader(),
+    new TiktokReader(),
+]
 
-// spReader.readFile().then(res => {
-//     console.log(res);
-// });
+async function collectData() {
+    const readerDatas = await Promise.all(readers.map(rd => rd.readFile()));
+    const datas = readerDatas.flatMap(datas => datas.map(dt => dt.convertToModel()));
+    console.log(datas);
+}
 
-// ttReader.readFile().then(res => {
-//     console.log(res);
-// });
+collectData();

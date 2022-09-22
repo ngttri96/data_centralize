@@ -10,7 +10,9 @@ class LazadaReader extends ExcelReader {
 
     async readFile() {
         this.wb = XLSX.readFile(this.reportDir);
-        console.log(this.wb);
+        const sheetNames = this.wb.SheetNames;
+        sheet1 = this.wb.Sheets[sheetNames[0]];
+        // console.log(this.wb.SheetNames);
 
         // const sheet = this.wb.getWorksheet(1);
 
@@ -20,7 +22,7 @@ class LazadaReader extends ExcelReader {
         //     const data = DataFacebook.initData(sheet.getRow(rowNo));
         //     datas.push(data);
         // }
-        return datas;
+        // return datas;
     }
 }
 

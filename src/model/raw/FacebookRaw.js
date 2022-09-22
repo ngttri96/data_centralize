@@ -1,6 +1,8 @@
 const ExcelJS = require('exceljs');
+const { Model } = require('../transfer/Model');
+const { Raw } = require('./Raw');
 
-class FacebookRaw {
+class FacebookRaw extends Raw {
     constructor(
         date,
         campName,
@@ -14,6 +16,8 @@ class FacebookRaw {
         dateStartReport,
         datEndReport,
     ) {
+        super(FacebookRaw.name);
+        
         this.date = date;
         this.campName = campName;
         this.spent = spent;
@@ -52,6 +56,10 @@ class FacebookRaw {
             //datEndReport         Kết thúc báo cáo
             new Date(cell.getCell(11).value),
         )
+    }
+
+    convertToModel() {
+        return super.converToModel(this.shows, this.pplSaw, null, null, this.spent);
     }
 }
 

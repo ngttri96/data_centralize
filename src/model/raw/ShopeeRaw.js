@@ -1,7 +1,8 @@
 const ExcelJS = require('exceljs');
 const {parseDate, parseFloatComma, parseDuration} = require('../../Utils/DataFormat');
+const { Raw } = require('./Raw');
 
-class ShopeeRaw {
+class ShopeeRaw extends Raw {
     /*
         date                Ngày	
         view                Lượt xem	
@@ -24,6 +25,8 @@ class ShopeeRaw {
         curAccess,
         newFollower,
     ) {
+        super(ShopeeRaw.name);
+        
         this.date = date;
         this.view = view;
         this.avgView = avgView;
@@ -56,6 +59,10 @@ class ShopeeRaw {
             // newFollower         Người theo dõi mới
             parseInt(cell.getCell(9).value),
         )
+    }
+
+    convertToModel() {
+        return super.converToModel(this.view, this.access, this.newAccess, this.curAccess, null);
     }
 }
 
