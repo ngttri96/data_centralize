@@ -25,7 +25,7 @@ class ShopeeRaw extends Raw {
         curAccess,
         newFollower,
     ) {
-        super(ShopeeRaw.name);
+        super('Shopee');
         
         this.date = date;
         this.view = view;

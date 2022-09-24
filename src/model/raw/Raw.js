@@ -11,6 +11,6 @@ module.exports.Raw = class Raw {
         newUser,
         totalUser,
         cost){
-        return new Model(impression, clicks, newUser, totalUser, cost);
+        return new Model(this.source, impression, clicks, newUser, totalUser, cost);
     }
 }

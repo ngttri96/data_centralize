@@ -1,9 +1,12 @@
 module.exports.Model = class Model {
-    constructor(impression,
+    constructor(
+        src,
+        impression,
         clicks,
         newUser,
         totalUser,
         cost) {
+        this.src = src,
         this.impression	= impression;
         this.clicks	= clicks;
         this.newUser = newUser;

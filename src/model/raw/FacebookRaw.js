@@ -16,7 +16,7 @@ class FacebookRaw extends Raw {
         dateStartReport,
         datEndReport,
     ) {
-        super(FacebookRaw.name);
+        super('Facebook');
         
         this.date = date;
         this.campName = campName;

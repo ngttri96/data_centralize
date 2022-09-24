@@ -37,7 +37,7 @@ class TiktokRaw extends Raw {
         rateBadQualityReturn,
         rateComplain
     ) {
-        super(TiktokRaw.name);
+        super('Tiktok');
 
         this.date = date,
         this.revenue = revenue,
