@@ -4,6 +4,7 @@ const { Raw } = require('./Raw');
 
 class FacebookRaw extends Raw {
     constructor(
+        file,
         date,
         campName,
         spent,
@@ -16,7 +17,7 @@ class FacebookRaw extends Raw {
         dateStartReport,
         datEndReport,
     ) {
-        super('Facebook');
+        super('Facebook', file);
         
         this.date = date;
         this.campName = campName;
@@ -33,6 +34,7 @@ class FacebookRaw extends Raw {
 
     static initData(cell){
         return new FacebookRaw(
+            '',
             //date                 Ngày	
             new Date(cell.getCell(1).value),
             //campName             Tên chiến dịch	
@@ -59,7 +61,7 @@ class FacebookRaw extends Raw {
     }
 
     convertToModel() {
-        return super.converToModel(this.shows, this.pplSaw, null, null, this.spent);
+        return super.converToModel(this.date, this.shows, this.pplSaw, null, null, this.spent);
     }
 }
 

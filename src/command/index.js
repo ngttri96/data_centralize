@@ -6,16 +6,17 @@ const { ExcelWriter } = require('../writer/ExcelWriter');
 
 const writer = new ExcelWriter();
 const readers = [
-    // new FacebookReader(),
+    new FacebookReader(),
     new LazadaReader(),
-    // new ShopeeReader(),
-    // new TiktokReader(),
+    new ShopeeReader(),
+    new TiktokReader(),
 ]
 
 async function collectData() {
     const readerDatas = await Promise.all(readers.map(rd => rd.readFile()));
-    // const datas = readerDatas.flatMap(datas => datas.map(dt => dt.convertToModel()));
-    // writer.writeFile(datas)
+    // console.log(readerDatas[0][7]);
+    const datas = readerDatas.flatMap(datas => datas.map(dt => dt.convertToModel()));
+    writer.writeFile(datas)
 }
 
 collectData();

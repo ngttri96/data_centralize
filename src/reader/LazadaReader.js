@@ -1,5 +1,6 @@
 const { ExcelReader } = require('./ExcelReader');
 var XLSX = require("xlsx");
+const { LazadaRaw } = require('../model/raw/LazadaRaw');
 
 class LazadaReader extends ExcelReader {
 
@@ -13,13 +14,13 @@ class LazadaReader extends ExcelReader {
         const sheetNames = this.wb.SheetNames;
         const sheet1 = this.wb.Sheets[sheetNames[0]];
         const sheetIndices = Object.keys(sheet1);
-        let sheetCors = [];
+        let cellIds = [];
         let row = [];
         for (let i = 1; i < sheetIndices.length; i++) {
             let cellId = sheetIndices[i];
             if(cellId.includes('A')){
                 if(row.length) {
-                    sheetCors.push(row);
+                    cellIds.push(row);
                 }
                 row = [];
                 row.push(cellId);
@@ -27,12 +28,18 @@ class LazadaReader extends ExcelReader {
                 row.push(cellId);
             }
             if(i === sheetIndices.length - 1) {
-                sheetCors.push(row);
+                cellIds.push(row);
             }
         }
-        // remove '!ref', '!merges' at the end of the sheet
-        sheetCors = sheetCors[sheetCors.length -1].
-        console.log(sheetCors);
+        const datas = [];
+        // start at row 9
+        for (let rowNo = 6; rowNo < cellIds.length; rowNo++) {
+            const cols = cellIds[rowNo];
+            const rowData = cols.map(el => sheet1[el].v);
+            const data = LazadaRaw.initData(rowData);
+            datas.push(data);
+        }
+        return datas;
 
         // console.log(sheet1)
         // console.log(this.wb.SheetNames);

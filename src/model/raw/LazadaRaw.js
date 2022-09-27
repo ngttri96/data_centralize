@@ -25,6 +25,7 @@ const { Raw } = require('./Raw');
 
 class LazadaRaw extends Raw {
     constructor(
+        file,
         date,
         revenue,
         access,
@@ -44,7 +45,7 @@ class LazadaRaw extends Raw {
         cancelNo,
         refund,
     ) {
-        super('Lazada');
+        super('Lazada', file);
         this.date = date
         this.revenue = revenue
         this.access = access
@@ -67,29 +68,48 @@ class LazadaRaw extends Raw {
 
     static initData(cell){
         return new LazadaRaw(
+        '',
         // date                             Ngày	
+        new Date(cell[0]),
         // revenue                          Doanh thu	
+        parseFloat(cell[1].replace(' ', '')),
         // access                           Khách truy cập	
+        parseInt(cell[2]),
         // buys                             Lượt mua	
+        parseInt(cell[3]),
         // order                            Đơn hàng	
+        parseInt(cell[4]),
         // view                             Lượt xem	
-        // sold                             Sản phẩm bán được	
+        parseInt(cell[5]),
+        // sold                             Sản phẩm bán 
+        parseInt(cell[6]),
         // rateConversion                   Tỷ lệ chuyển đổi	
+        parseFloat(cell[7].replace('%', '')),
         // revernuePerBuy                   Doanh thu trên mỗi lượt mua	
+        parseFloat(cell[8].replace(' ', '')),
         // accessValue                      Giá trị lượt truy cập	
+        parseFloat(cell[9].replace(' ', '')),
         // cusAddToCart                     Khách thêm vào giỏ hàng	
+        parseInt(cell[10]),
         // addToCart                        Số lượng thêm vào giỏ hàng	
+        parseInt(cell[11]),
         // favList                          Danh sách yêu thích	
+        parseInt(cell[12]),
         // cusFav                           Khách hàng yêu thích	
+        parseInt(cell[13]),
         // avgOrder                         Giá trị đơn hàng trung bình	
+        parseFloat(cell[14].replace(' ', '')),
         // avgArticle                       Số sản phẩm trung bình 	
+        parseFloat(cell[15].replace(' ', '')),
         // cancelNo                         Số lượng hủy	
+        parseInt(cell[16]),
         // refund                           Khoản hoàn trả
+        parseFloat(cell[17].replace(' ', '')),
         )
     }
 
     convertToModel() {
-        return super.converToModel(this.shows, this.pplSaw, null, null, this.spent);
+        return super.converToModel(this.date, this.view, this.addToCart, null, this.buys, null);
     }
 }
 

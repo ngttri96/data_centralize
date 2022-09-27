@@ -21,6 +21,7 @@ class TiktokRaw extends Raw {
         rateComplain           Tỷ lệ khiếu nại
     */
     constructor(
+        file,
         date,
         revenue,
         revenueAss,
@@ -37,7 +38,7 @@ class TiktokRaw extends Raw {
         rateBadQualityReturn,
         rateComplain
     ) {
-        super('Tiktok');
+        super('Tiktok', file);
 
         this.date = date,
         this.revenue = revenue,
@@ -58,6 +59,7 @@ class TiktokRaw extends Raw {
 
     static initData(cell) {
         return new TiktokRaw(
+            '',
             // date                   Thời gian	
             parseDate(cell.getCell(1).value, 'mm-dd-yyyy'),
             // revenue                Doanh thu	
@@ -92,7 +94,7 @@ class TiktokRaw extends Raw {
     }
 
     convertToModel() {
-        return super.converToModel(this.view, this.prodAppro, null, this.buyer, null);
+        return super.converToModel(this.date, this.view, this.prodAppro, null, this.buyer, null);
     }
 }
 

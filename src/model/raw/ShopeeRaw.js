@@ -15,6 +15,7 @@ class ShopeeRaw extends Raw {
         newFollower         Người theo dõi mới
     */
     constructor(
+        file,
         date,
         view,
         avgView,
@@ -25,7 +26,7 @@ class ShopeeRaw extends Raw {
         curAccess,
         newFollower,
     ) {
-        super('Shopee');
+        super('Shopee', file);
         
         this.date = date;
         this.view = view;
@@ -40,6 +41,7 @@ class ShopeeRaw extends Raw {
 
     static initData(cell){
         return new ShopeeRaw(
+            '',
             // date                 Ngày	
             parseDate(cell.getCell(1).value, 'dd-mm-yyyy'),
             // view                Lượt xem	
@@ -62,7 +64,7 @@ class ShopeeRaw extends Raw {
     }
 
     convertToModel() {
-        return super.converToModel(this.view, this.access, this.newAccess, this.curAccess, null);
+        return super.converToModel(this.date, this.view, this.access, this.newAccess, this.curAccess, null);
     }
 }
 
