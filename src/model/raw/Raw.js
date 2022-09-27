@@ -14,12 +14,12 @@ module.exports.Raw = class Raw {
         newUser,
         totalUser,
         cost) {
-            date = date || '-';
-            impression = impression || '-';
-            clicks = clicks || '-';
-            newUser = newUser || '-';
-            totalUser = totalUser || '-';
-            cost = cost || '-';
+            date = date !== null || date != undefined ? date : '-';
+            impression = impression !== null || impression != undefined ? impression : '-';
+            clicks = clicks !== null || clicks != undefined ? clicks : '-';
+            newUser = newUser !== null || newUser != undefined ? newUser : '-';
+            totalUser = totalUser !== null || totalUser != undefined ? totalUser : '-';
+            cost = cost !== null || cost != undefined ? cost : '-';
         return new Model(this.source, this.file, date, impression, clicks, newUser, totalUser, cost);
     }
 }
